@@ -1,8 +1,8 @@
 import numpy as np, subprocess, sys, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 exec(open('/tmp/claude-0/-home-claude/4e2a7adb-d9d1-55f9-8098-6e0e73499dc0/scratchpad/lunos/build.py').read().split('T_HEAD=1.9')[0])
-_d=Image.open(D+'of/dev2.png').convert('RGB').crop((470,60,2030,1110))
-devc=feather(mult(_d),50); cartc=feather(mult(Image.open(D+'of/cart2.png').convert('RGB')),50); dev=devc
+_d=Image.open(D+'of/pack2.png').convert('RGB')
+devc=feather(mult(_d),30); cartc=feather(mult(Image.open(D+'of/cart3.png').convert('RGB')),30); dev=devc
 B=60/124
 def back(x,s=1.7):  # ease-out con rebote corto
     x=min(max(x,0),1); x-=1; return x*x*((s+1)*x+s)+1
@@ -38,7 +38,7 @@ def callout(c,t,t0,px,py,lx,ly,txt):
         x0=lx-w/2 if abs(lx-540)<200 else (lx if lx>px else lx-w); x0=max(40,min(x0,1040-w))
         d.rounded_rectangle([x0,ly-32,x0+w,ly+32],radius=32,fill=W+(a,),outline=RED+(a,),width=3); d.text((x0+w/2,ly),txt,font=fo,fill=INK+(a,),anchor='mm')
     c.alpha_composite(L)
-DEV_C=(540,1130); DSC=1000/devc.width; CART_C=(540,1110); CSC=1080/cartc.height
+DEV_C=(540,1130); DSC=1040/devc.width; CART_C=(540,1110); CSC=1100/cartc.height
 def devpt(x,y,s): return DEV_C[0]+(x-dev.width/2)*s, DEV_C[1]+(y-dev.height/2)*s
 def cartpt(x,y,s): return CART_C[0]+(x-cartc.width/2)*s, CART_C[1]+(y-cartc.height/2)*s
 T1=4*B; T2=14*B; T3=16*B; T4=24*B; T5=26*B; END=40*B
@@ -67,7 +67,7 @@ def frame(t):
         s=DSC*(1.12-0.12*ease(k/0.6))*(1+0.025*eio((t-T1)/(T2-T1)))
         place(c,devc,DEV_C[0],DEV_C[1],s)
         titles(c,t,T1,'DÜRR DENTAL · LUNOS','MyLunos Duo Pro','Ultrasonidos y pulido en un equipo')
-        for i,(x,y,lx,ly,txt) in enumerate(((180,270,150,640,'Ultrasonidos'),(1410,460,930,650,'Pulido'))):
+        for i,(x,y,lx,ly,txt) in enumerate(((831,209,250,640,'Ultrasonidos'),(1633,320,880,640,'Pulido'))):
             px,py=devpt(x,y,s); callout(c,t,T1+(6+2*i)*B-T1+T1-6*B+6*B if False else T1+(3+2*i)*B,px,py,lx,ly,txt)
         badge2(c,t); ticker(c,t,1720)
         if t<T1+0.45:
@@ -83,7 +83,7 @@ def frame(t):
         s=CSC*(1.12-0.12*ease((t-T3)/0.6))*(1+0.025*eio((t-T3)/(T4-T3)))
         place(c,cartc,CART_C[0],CART_C[1],s)
         titles(c,t,T3,'Y ADEMÁS','+ Carro MyLunos Cart','Todo montado y a mano')
-        for i,(x,y,lx,ly,txt) in enumerate(((700,690,930,770,'Cajón'),(1000,1130,930,1010,'2 baldas'),(230,2000,170,1450,'Con ruedas'))):
+        for i,(x,y,lx,ly,txt) in enumerate(((800,770,930,770,'Cajón'),(850,1220,930,1010,'2 baldas'),(330,2080,170,1450,'Con ruedas'))):
             px,py=cartpt(x,y,s); callout(c,t,T3+(2+2*i)*B,px,py,lx,ly,txt)
         badge2(c,t); ticker(c,t,1720)
         if t<T3+0.4:
