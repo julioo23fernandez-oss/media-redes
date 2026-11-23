@@ -22,8 +22,8 @@ d.text((66,540),'Gracias a todos',font=f(76,'Bold'),fill=INK,anchor='ls')
 d.text((66,628),'los que vinisteis',font=f(76,'Bold'),fill=INK,anchor='ls')
 g=fitw(Image.open(A+'6256e1da-image.jpg').convert('RGB'),1080); c.paste(g,(0,700))
 y=700+g.height
-d.text((70,y+80),'Y a @dentsplysirona.iberia y al Dr. Juan Miraglia',font=f(32,'Regular'),fill=GREY,anchor='ls')
-d.text((70,y+124),'por hacerlo posible.',font=f(32,'Regular'),fill=GREY,anchor='ls')
+d.text((70,y+70),'Y a @dentsplysirona.iberia, @rosario.alberto_prof',font=f(32,'Regular'),fill=GREY,anchor='ls')
+d.text((70,y+114),'y al Dr. Juan Miraglia por hacerlo posible.',font=f(32,'Regular'),fill=GREY,anchor='ls')
 cta(d,y+250)
 c.convert('RGB').save(O+'historia-curso-1-gracias.png')
 
@@ -42,6 +42,6 @@ for n,a,b in items:
     d.text((160,yy+18),a,font=f(32,'Bold'),fill=INK,anchor='ls'); d.text((160,yy+58),b,font=f(28,'Regular'),fill=GREY,anchor='ls')
     yy+=110
 d.text((70,yy+30),'Y por la tarde, taller práctico.',font=f(30,'Medium'),fill=INK,anchor='ls')
-d.text((70,yy+90),'Con @dentsplysirona.iberia',font=f(30,'Bold'),fill=RED,anchor='ls')
+d.text((70,yy+90),'Con @dentsplysirona.iberia y @rosario.alberto_prof',font=f(30,'Bold'),fill=RED,anchor='ls')
 logos(c,1790,70,200,130)
 c.convert('RGB').save(O+'historia-curso-2-contenido.png')
