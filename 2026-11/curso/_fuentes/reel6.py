@@ -93,12 +93,35 @@ def topcap(c,t,dur,title,sub):
     d.text((70,318+dy),title,font=f(54,'Bold'),fill=INK+(al,),anchor='ls')
     d.text((72,370+dy),sub,font=f(30,'Regular'),fill=(50,48,45,al),anchor='ls')
     c.alpha_composite(L)
+SF=Image.open(D+'selfie_flip.jpg').convert('RGB')
+def selfie_card(t,dur):
+    c=Image.new('RGBA',(Wd,Hd),CREAM+(255,))
+    z=1.0+0.03*eio(t/dur); w=1080; h=int(SF.height*w/SF.width)
+    p=SF.resize((int(w*z),int(h*z)),Image.LANCZOS).crop((int(w*(z-1)/2),int(h*(z-1)/2),int(w*(z-1)/2)+w,int(h*(z-1)/2)+h))
+    y=(Hd-h)//2-40; c.paste(p,(0,y))
+    k=fade(t,dur,0.5,0.3,0.0); d=ImageDraw.Draw(c); al=int(255*k)
+    d.rectangle([70,y+h+70,114,y+h+74],fill=RED+(al,))
+    d.text((70,y+h+130),'Un día para repetir',font=f(44,'Bold'),fill=INK+(al,),anchor='ls')
+    return c
+BR=Image.open(A+'d13c0f4f-image.jpg').convert('RGB').crop((0,380,1200,1580))
+def brochure_card(t,dur):
+    c=Image.new('RGBA',(Wd,Hd),CREAM+(255,))
+    z=1.0+0.03*eio(t/dur); w=1080; h=1080
+    p=BR.resize((int(w*z),int(h*z)),Image.LANCZOS).crop((int(w*(z-1)/2),int(h*(z-1)/2),int(w*(z-1)/2)+w,int(h*(z-1)/2)+h))
+    y=(Hd-h)//2-60; c.paste(p,(0,y))
+    k=fade(t,dur,0.5,0.3,0.0); d=ImageDraw.Draw(c); al=int(255*k)
+    d.rectangle([70,y+h+60,114,y+h+64],fill=RED+(al,))
+    d.text((70,y+h+120),'Familia RECIPROC®',font=f(44,'Bold'),fill=INK+(al,),anchor='ls')
+    d.text((72,y+h+166),'Dentsply Sirona',font=f(28,'Regular'),fill=(70,68,64,al),anchor='ls')
+    return c
 SEG6=[ # tipo, fuente, inicio, dur, z0, z1, extra
  ('v','c3439',0.0,3.0,1.0,1.045,'cover'),
  ('s','IMG_3436_60',0.3,2.4,1.02,1.02,0.5),
  ('s','c3437_60',0.6,2.4,1.0,1.0,1.0),
  ('v','c3443ds',0.0,3.2,1.0,1.03,('Dr. Juan Miraglia','RECIPROC® Mínima · Dentsply Sirona')),
  ('v','c3442',0.0,2.4,1.0,1.03,('B','Taller práctico','Con tecnología Dentsply Sirona')),
+ ('b',None,None,2.6,1,1,None),
+ ('q',None,None,2.8,1,1,None),
  ('p',None,None,3.6,1,1,None),
 ]
 END=3.2; XF=14
@@ -112,6 +135,8 @@ for k_,(typ,src,st,dur,z0,z1,ex) in enumerate(SEG6):
     for i in range(N):
         t=i/FPS
         if typ=='p': im=photo_card(t,dur)
+        elif typ=='q': im=selfie_card(t,dur)
+        elif typ=='b': im=brochure_card(t,dur)
         else:
             z=z0+(z1-z0)*eio(t/dur)
             im=zoomimg(Image.fromarray(clip[min(idx[i],len(clip)-1)]),z,0.6,0.5).convert('RGBA')
